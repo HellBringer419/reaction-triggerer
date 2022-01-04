@@ -1,33 +1,12 @@
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-  HStack,
-  Container,
-  Center,
-  Stack,
-} from "@chakra-ui/react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import { ChakraProvider, Box } from "@chakra-ui/react";
+import theme from "./theme";
+import "@fontsource/ibm-plex-sans";
+import ContainerComponent from "./components/ContainerComponent";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box textAlign="center" fontSize="xl">
-      <Stack minH="100vh" spacing={8} direction={["column", "row"]}>
-        <Center w="66%">
-          <Text> Summary </Text>
-        </Center>
-        <VStack w="34%">
-          <ColorModeSwitcher alignSelf={"flex-end"} />
-          <Center h="80%" w="100%">
-            <Text> Trigger </Text>
-          </Center>
-        </VStack>
-      </Stack>
+      <ContainerComponent />
     </Box>
   </ChakraProvider>
 );
