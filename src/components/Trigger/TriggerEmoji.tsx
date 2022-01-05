@@ -1,6 +1,5 @@
 import {
   Popover,
-  PopoverBody,
   PopoverContent,
   PopoverTrigger,
   Text,
