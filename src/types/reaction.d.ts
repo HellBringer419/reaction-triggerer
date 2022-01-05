@@ -1,5 +1,5 @@
 export interface Reaction {
   id: number;
-  name: String;
-  emoji: String;
+  name: string;
+  emoji: string;
 }

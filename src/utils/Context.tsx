@@ -11,11 +11,16 @@ import { apiUrl, fallbackApiUrl } from "./apis";
 import { ACTIONS, reducerFunction } from "./reducer";
 import { UserReaction } from "../types/user-reaction";
 import { IContext } from "../types/interface-context";
+import { User } from "../types/user";
+import { Reaction } from "../types/reaction";
 
 const initialState = {
   hoveredReactionId: 0,
   userReactions: [] as UserReaction[],
-  isLoadingUserReactions: true,
+  currentContentId: 1,
+  currentUserId: 1,
+  users: [] as User[],
+  reactions: [] as Reaction[],
 };
 
 export const Context = createContext<IContext>(initialState);
@@ -24,27 +29,82 @@ export const ContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
 
   useEffect(() => {
+    initializeUserReactions();
+    initializeReactions();
+    initializeUsers();
+  }, [dispatch]);
+
+  const initializeUsers = () => {
     axios
-      .get(apiUrl + "user_content_reactions")
+      .get(apiUrl + "users")
+      .then((response) => {
+        dispatch({
+          type: ACTIONS.INIT_USERS,
+          payload: response.data,
+        });
+      })
+      .catch(() => {
+        axios
+          .get(fallbackApiUrl + "users")
+          .then((response) => {
+            dispatch({
+              type: ACTIONS.INIT_USERS,
+              payload: response.data,
+            });
+          })
+          .catch((error) => {
+            console.error("[ERROR] Failed to fetch initial list of user");
+            console.log(error);
+          });
+      });
+  };
+
+  const initializeReactions = () => {
+    axios
+      .get(apiUrl + "reactions")
       .then((response) => {
         dispatch({
           type: ACTIONS.INIT_REACTIONS,
           payload: response.data,
         });
-        dispatch({
-          type: ACTIONS.LOADED_REACTIONS,
-        });
       })
       .catch(() => {
-        return axios
-          .get(fallbackApiUrl + "user_content_reactions")
+        axios
+          .get(fallbackApiUrl + "reactions")
           .then((response) => {
             dispatch({
               type: ACTIONS.INIT_REACTIONS,
               payload: response.data,
             });
+          })
+          .catch((error) => {
+            console.error("[ERROR] Failed to fetch initial list of reactions");
+            console.log(error);
+          });
+      });
+  };
+
+  const initializeUserReactions = () => {
+    axios
+      .get(
+        apiUrl + `user_content_reactions?content_id=${state.currentContentId}`
+      )
+      .then((response) => {
+        dispatch({
+          type: ACTIONS.INIT_USER_REACTIONS,
+          payload: response.data,
+        });
+      })
+      .catch(() => {
+        axios
+          .get(
+            fallbackApiUrl +
+              `user_content_reactions?content_id=${state.currentContentId}`
+          )
+          .then((response) => {
             dispatch({
-              type: ACTIONS.LOADED_REACTIONS,
+              type: ACTIONS.INIT_USER_REACTIONS,
+              payload: response.data,
             });
           })
           .catch((error) => {
@@ -54,7 +114,7 @@ export const ContextProvider: FC = ({ children }) => {
             console.log(error);
           });
       });
-  }, [dispatch]);
+  };
 
   const setHoveredReactionId = (id: number) => {
     dispatch({
@@ -70,7 +130,7 @@ export const ContextProvider: FC = ({ children }) => {
         if (response.status === 201) {
           const newUserReaction = { ...userReaction, id: response.data };
           dispatch({
-            type: ACTIONS.ADD_REACTION,
+            type: ACTIONS.ADD_USER_REACTION,
             payload: newUserReaction,
           });
         }
@@ -82,7 +142,7 @@ export const ContextProvider: FC = ({ children }) => {
             if (response.status === 201) {
               const newUserReaction = { ...userReaction, id: response.data };
               dispatch({
-                type: ACTIONS.ADD_REACTION,
+                type: ACTIONS.ADD_USER_REACTION,
                 payload: newUserReaction,
               });
             }
@@ -101,11 +161,8 @@ export const ContextProvider: FC = ({ children }) => {
       .delete(apiUrl + `user_content_reactions/${id}`)
       .then((response) => {
         dispatch({
-          type: ACTIONS.INIT_REACTIONS,
+          type: ACTIONS.DELETE_USER_REACTION,
           payload: response.data,
-        });
-        dispatch({
-          type: ACTIONS.LOADED_REACTIONS,
         });
       })
       .catch(() => {
@@ -113,11 +170,8 @@ export const ContextProvider: FC = ({ children }) => {
           .get(fallbackApiUrl + "user_content_reactions")
           .then((response) => {
             dispatch({
-              type: ACTIONS.INIT_REACTIONS,
+              type: ACTIONS.DELETE_USER_REACTION,
               payload: response.data,
-            });
-            dispatch({
-              type: ACTIONS.LOADED_REACTIONS,
             });
           })
           .catch((error) => {
@@ -125,11 +179,6 @@ export const ContextProvider: FC = ({ children }) => {
             console.log(error);
           });
       });
-
-    dispatch({
-      type: ACTIONS.DELETE_REACTION,
-      payload: id,
-    });
   };
 
   return (
@@ -137,7 +186,10 @@ export const ContextProvider: FC = ({ children }) => {
       value={{
         hoveredReactionId: state.hoveredReactionId,
         userReactions: state.userReactions,
-        isLoadingUserReactions: state.isLoadingUserReactions,
+        currentContentId: state.currentContentId,
+        currentUserId: state.currentUserId,
+        reactions: state.reactions,
+        users: state.users,
         setHoveredReactionId,
         addUserReaction,
         deleteUserReaction,

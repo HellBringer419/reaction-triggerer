@@ -1,9 +1,14 @@
+import { Reaction } from "./reaction";
+import { User } from "./user";
 import { UserReaction } from "./user-reaction";
 
 export interface IState {
   hoveredReactionId: number;
   userReactions: UserReaction[];
-  isLoadingUserReactions: boolean;
+  users: User[];
+  reactions: Reaction[];
+  currentContentId: number;
+  currentUserId: number;
 }
 
 export interface IContext extends IState {

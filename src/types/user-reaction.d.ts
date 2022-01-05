@@ -1,3 +1,6 @@
+import { Reaction } from "./reaction";
+import { User } from "./user";
+
 export interface UserReaction {
   id?: number;
   user_id?: number;
