@@ -6,7 +6,7 @@
  */
 
 import axios from "axios";
-import { createContext, useReducer, useEffect, FC } from "react";
+import { createContext, useReducer, useEffect, FC, useCallback } from "react";
 import { apiUrl, fallbackApiUrl } from "./apis";
 import { ACTIONS, reducerFunction } from "./reducer";
 import { UserReaction } from "../types/user-reaction";
@@ -28,13 +28,7 @@ export const Context = createContext<IContext>(initialState);
 export const ContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
 
-  useEffect(() => {
-    initializeUserReactions();
-    initializeReactions();
-    initializeUsers();
-  }, [dispatch]);
-
-  const initializeUsers = () => {
+  const initializeUsers = useCallback(() => {
     axios
       .get(apiUrl + "users")
       .then((response) => {
@@ -57,9 +51,9 @@ export const ContextProvider: FC = ({ children }) => {
             console.log(error);
           });
       });
-  };
+  }, []);
 
-  const initializeReactions = () => {
+  const initializeReactions = useCallback(() => {
     axios
       .get(apiUrl + "reactions")
       .then((response) => {
@@ -82,9 +76,9 @@ export const ContextProvider: FC = ({ children }) => {
             console.log(error);
           });
       });
-  };
+  }, [dispatch]);
 
-  const initializeUserReactions = () => {
+  const initializeUserReactions = useCallback(() => {
     axios
       .get(
         apiUrl + `user_content_reactions?content_id=${state.currentContentId}`
@@ -114,7 +108,13 @@ export const ContextProvider: FC = ({ children }) => {
             console.log(error);
           });
       });
-  };
+  }, [state.currentContentId, dispatch]);
+
+  useEffect(() => {
+    initializeUserReactions();
+    initializeReactions();
+    initializeUsers();
+  }, [dispatch, initializeUsers, initializeReactions, initializeUserReactions]);
 
   const setHoveredReactionId = (id: number) => {
     dispatch({
