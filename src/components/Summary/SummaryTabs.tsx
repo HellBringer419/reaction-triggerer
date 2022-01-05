@@ -1,23 +1,33 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../utils/Context";
 import UserReactionItem from "./UserReactionItem";
-import { UserReaction } from "../../types/user-reaction";
+import { aggregrateEmojiCount } from "../../utils/aggreagrate-emoji-count";
 
 const SummaryTabs = () => {
-  const { userReactions, reactions, users } = useContext(Context);
+  const { userReactions, reactions, users, hoveredReactionId } =
+    useContext(Context);
 
-  const aggregrateEmojiCount = (
-    userReactions: UserReaction[],
-    reactionId: number
-  ) => {
-    return userReactions.filter(
-      (userReaction) => userReaction.reaction_id === reactionId
-    ).length;
-  };
+  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    setTabIndex(
+      hoveredReactionId !== 0
+        ? reactions.findIndex((reaction) => reaction.id === hoveredReactionId) +
+            1
+        : 0
+    );
+  }, [hoveredReactionId]);
 
   return (
-    <Tabs h="100%" w="100%" variant="unstyled" isFitted={true}>
+    <Tabs
+      h="100%"
+      w="100%"
+      variant="unstyled"
+      isFitted={true}
+      index={tabIndex}
+      onChange={(index) => setTabIndex(index)}
+    >
       <TabList minW="fit-content" color="#161616">
         <Tab
           marginX="1px"
@@ -26,7 +36,6 @@ const SummaryTabs = () => {
           borderBottomColor="#E0E0E0"
           fontSize="14px"
           _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
-          _focus={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
         >
           All
         </Tab>
@@ -62,7 +71,7 @@ const SummaryTabs = () => {
           ))}
         </TabPanel>
         {reactions.map((reaction) => (
-          <TabPanel h="100%" maxH="300px" overflowY="auto">
+          <TabPanel h="100%" maxH="300px" overflowY="auto" key={reaction.id}>
             {userReactions
               .filter(
                 (userReaction) => userReaction.reaction_id === reaction.id

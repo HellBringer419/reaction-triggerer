@@ -21,6 +21,9 @@ const initialState = {
   currentUserId: 1,
   users: [] as User[],
   reactions: [] as Reaction[],
+  setHoveredReactionId: () => {},
+  addUserReaction: () => {},
+  deleteUserReaction: () => {},
 };
 
 export const Context = createContext<IContext>(initialState);
@@ -128,7 +131,7 @@ export const ContextProvider: FC = ({ children }) => {
       .post(apiUrl + "user_content_reactions", userReaction)
       .then((response) => {
         if (response.status === 201) {
-          const newUserReaction = { ...userReaction, id: response.data };
+          const newUserReaction = { ...userReaction, id: response.data.id };
           dispatch({
             type: ACTIONS.ADD_USER_REACTION,
             payload: newUserReaction,
@@ -140,7 +143,7 @@ export const ContextProvider: FC = ({ children }) => {
           .get(fallbackApiUrl + "user_content_reactions")
           .then((response) => {
             if (response.status === 201) {
-              const newUserReaction = { ...userReaction, id: response.data };
+              const newUserReaction = { ...userReaction, id: response.data.id };
               dispatch({
                 type: ACTIONS.ADD_USER_REACTION,
                 payload: newUserReaction,
@@ -160,19 +163,23 @@ export const ContextProvider: FC = ({ children }) => {
     axios
       .delete(apiUrl + `user_content_reactions/${id}`)
       .then((response) => {
-        dispatch({
-          type: ACTIONS.DELETE_USER_REACTION,
-          payload: response.data,
-        });
+        if (response.status === 200) {
+          dispatch({
+            type: ACTIONS.DELETE_USER_REACTION,
+            payload: id,
+          });
+        }
       })
       .catch(() => {
         return axios
-          .get(fallbackApiUrl + "user_content_reactions")
+          .get(fallbackApiUrl + `user_content_reactions/${id}`)
           .then((response) => {
-            dispatch({
-              type: ACTIONS.DELETE_USER_REACTION,
-              payload: response.data,
-            });
+            if (response.status === 200) {
+              dispatch({
+                type: ACTIONS.DELETE_USER_REACTION,
+                payload: id,
+              });
+            }
           })
           .catch((error) => {
             console.error(`[ERROR]: Could NOT delete user ${id}`);

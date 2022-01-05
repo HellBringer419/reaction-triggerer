@@ -6,10 +6,12 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-const TriggerEmoji: React.FC<{ emoji: String; name: String }> = ({
-  emoji,
-  name,
-}) => {
+const TriggerEmoji: React.FC<{
+  id: number;
+  emoji: String;
+  name: String;
+  handleEmojiSelect: (id: number) => void;
+}> = ({ id, emoji, name, handleEmojiSelect }) => {
   const bgBlack = useColorModeValue("#161616", "gray.500");
   const bgWhite = useColorModeValue("white", "gray.700");
   return (
@@ -21,6 +23,7 @@ const TriggerEmoji: React.FC<{ emoji: String; name: String }> = ({
           fontSize="14px"
           lineHeight="18px"
           _hover={{ fontSize: "32px" }}
+          onClick={() => handleEmojiSelect(id)}
         >
           {emoji}
         </Text>

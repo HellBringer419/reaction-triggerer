@@ -12,7 +12,7 @@ export interface IState {
 }
 
 export interface IContext extends IState {
-  setHoveredReactionId?: (number) => void;
-  addUserReaction?: (UserReaction) => void;
-  deleteUserReaction?: (number) => void;
+  setHoveredReactionId: (number) => void;
+  addUserReaction: (UserReaction) => void;
+  deleteUserReaction: (number) => void;
 }

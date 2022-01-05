@@ -45,7 +45,7 @@ export const reducerFunction = (state: IState, action: Action): IState => {
       return {
         ...state,
         userReactions: state.userReactions.filter(
-          (userReaction) => userReaction.id === action.payload
+          (userReaction) => userReaction.id !== action.payload
         ),
       };
 

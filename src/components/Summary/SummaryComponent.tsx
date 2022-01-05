@@ -1,7 +1,7 @@
 import { Text, useColorModeValue, VStack } from "@chakra-ui/react";
 import SummaryTabs from "./SummaryTabs";
 
-const SummaryComponent: React.FC<{}> = () => {
+const SummaryComponent = () => {
   const bgWhite = useColorModeValue("white", "gray.800");
   return (
     <VStack h="386px" w="497px" alignItems="flex-start" bg={bgWhite}>
