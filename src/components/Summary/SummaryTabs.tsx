@@ -17,7 +17,7 @@ const SummaryTabs = () => {
             1
         : 0
     );
-  }, [hoveredReactionId]);
+  }, [hoveredReactionId, reactions]);
 
   return (
     <Tabs
