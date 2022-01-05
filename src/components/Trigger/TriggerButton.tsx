@@ -1,7 +1,6 @@
 import {
-  Box,
-  Button,
   Center,
+  Flex,
   Popover,
   PopoverBody,
   PopoverContent,
@@ -9,6 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import AddEmoji from "../../icons/AddEmoji";
+import TriggerEmoji from "./TriggerEmoji";
 
 const TriggerButton = () => {
   const bgGray = useColorModeValue("#EDEEF0", "gray.800");
@@ -39,12 +39,20 @@ const TriggerButton = () => {
       </PopoverTrigger>
       <PopoverContent
         h="32px"
+        w="118px"
         borderColor={popoverRadiusWhite}
         borderRadius="24px"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.03)"
         bg={bgWhite}
+        _focus={{ borderColor: { popoverRadiusWhite } }}
       >
-        <PopoverBody>Are you sure</PopoverBody>
+        <PopoverBody margin="0" padding="6px">
+          <Flex justifyContent="space-around" alignItems="stretch">
+            <TriggerEmoji emoji="👍️" name="Like" />
+            <TriggerEmoji emoji="❤️" name="Love" />
+            <TriggerEmoji emoji="👏" name="Cheer" />
+          </Flex>
+        </PopoverBody>
       </PopoverContent>
     </Popover>
   );

@@ -3,11 +3,8 @@ import UserReactionItem from "./UserReactionItem";
 
 const SummaryTabs = () => {
   return (
-    <Tabs h="100%" w="100%" variant="unstyled">
+    <Tabs h="100%" w="100%" variant="unstyled" isFitted={true}>
       <TabList
-        borderBottomStyle="solid"
-        borderBottomWidth="1px"
-        borderBottomColor="gray.200"
         minW="fit-content"
         color="#161616"
       >
@@ -67,3 +64,9 @@ const SummaryTabs = () => {
 };
 
 export default SummaryTabs;
+
+
+// On tabList
+// borderBottomStyle="solid"
+// borderBottomWidth="1px"
+// borderBottomColor="gray.200"
