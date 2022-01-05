@@ -9,14 +9,15 @@ const SummaryTabs = () => {
         borderBottomWidth="1px"
         borderBottomColor="gray.200"
         minW="fit-content"
+        color="#161616"
       >
         <Tab
           marginX="1px"
           borderBottomStyle="solid"
           borderBottomWidth="1px"
-          borderBottomColor="gray.200"
+          borderBottomColor="#E0E0E0"
           fontSize="14px"
-          _selected={{ fontWeight: "600", borderBottomColor: "blue.600" }}
+          _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
         >
           All
         </Tab>
@@ -24,9 +25,9 @@ const SummaryTabs = () => {
           marginX="1px"
           borderBottomStyle="solid"
           borderBottomWidth="1px"
-          borderBottomColor="gray.200"
+          borderBottomColor="#E0E0E0"
           fontSize="14px"
-          _selected={{ fontWeight: "600", borderBottomColor: "blue.600" }}
+          _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
         >
           👍️ · 5
         </Tab>
@@ -34,9 +35,9 @@ const SummaryTabs = () => {
           marginX="1px"
           borderBottomStyle="solid"
           borderBottomWidth="1px"
-          borderBottomColor="gray.200"
+          borderBottomColor="#E0E0E0"
           fontSize="14px"
-          _selected={{ fontWeight: "600", borderBottomColor: "blue.400" }}
+          _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
         >
           ❤️ · 15
         </Tab>
@@ -44,14 +45,14 @@ const SummaryTabs = () => {
           marginX="1px"
           borderBottomStyle="solid"
           borderBottomWidth="1px"
-          borderBottomColor="gray.200"
+          borderBottomColor="#E0E0E0"
           fontSize="14px"
           _selected={{ fontWeight: "600", borderBottomColor: "blue.400" }}
         >
           👏 · 10
         </Tab>
       </TabList>
-      <TabPanels h="100%">
+      <TabPanels h="100%" color="#393939">
         <TabPanel h="100%">
           <UserReactionItem />
           <UserReactionItem />

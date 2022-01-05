@@ -5,7 +5,13 @@ const SummaryComponent: React.FC<{}> = () => {
   const bgWhite = useColorModeValue("white", "gray.800");
   return (
     <VStack h="386px" w="497px" alignItems="flex-start" bg={bgWhite}>
-      <Text padding="16px" paddingBottom="3px" fontWeight="600" fontSize="14px">
+      <Text
+        padding="16px"
+        paddingBottom="3px"
+        fontWeight="600"
+        fontSize="14px"
+        color="#161616"
+      >
         Reactions
       </Text>
       <SummaryTabs />

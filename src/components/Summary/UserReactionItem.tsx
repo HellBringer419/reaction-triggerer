@@ -1,4 +1,4 @@
-import { Avatar, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
+import { Avatar, HStack, Text } from "@chakra-ui/react";
 
 const UserReactionItem: React.FC = () => {
   return (
@@ -9,7 +9,12 @@ const UserReactionItem: React.FC = () => {
         w="20px"
         h="20px"
       />
-      <Text fontWeight="400" fontSize="14px">
+      <Text
+        fontWeight="400"
+        fontSize="14px"
+        paddingY="7px"
+        fontFamily={"sans-serif"}
+      >
         👍️ Leslie Alexander
       </Text>
     </HStack>

@@ -7,11 +7,11 @@ const ContainerComponent = () => {
   const bgGray = useColorModeValue("gray.50", "gray.700");
 
   return (
-    <Stack minH="100vh" spacing={8} direction={["column", "row"]}>
-      <Center w="66%" bg={bgGray}>
+    <Stack minH="100vh" spacing={8} direction={["column-reverse", "row"]}>
+      <Center w={["100%", "66%"]} bg={bgGray}>
         <SummaryComponent />
       </Center>
-      <VStack w="34%">
+      <VStack w={["100%", "34%"]}>
         <ColorModeSwitcher alignSelf={"flex-end"} />
         <Center h="80%" w="100%">
           <TriggerComponent />
