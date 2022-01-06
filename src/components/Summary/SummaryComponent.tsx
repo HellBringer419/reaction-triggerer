@@ -6,7 +6,7 @@ const SummaryComponent = () => {
   const blackColor = useColorModeValue("#161616", "#E8E8E8");
 
   return (
-    <VStack h="386px" w="497px" alignItems="flex-start" bg={bgWhite}>
+    <VStack h="386px" minW="497px" alignItems="flex-start" bg={bgWhite}>
       <Text
         padding="16px"
         paddingBottom="3px"
