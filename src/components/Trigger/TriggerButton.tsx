@@ -15,9 +15,9 @@ const TriggerButton: React.FC<{
   reactions: Reaction[];
   handleEmojiSelect: (id: number) => void;
 }> = ({ reactions, handleEmojiSelect }) => {
-  const bgGray = useColorModeValue("#EDEEF0", "gray.800");
-  const bgWhite = useColorModeValue("white", "gray.700");
-  const popoverRadiusWhite = useColorModeValue("#E0E0E0", "gray.600");
+  const bgGray = useColorModeValue("#EDEEF0", "#0E0F11");
+  const bgWhite = useColorModeValue("white", "gray.800");
+  const borderLightGray = useColorModeValue("#E0E0E0", "#050505");
   return (
     <Popover placement="top">
       <PopoverTrigger>
@@ -38,17 +38,17 @@ const TriggerButton: React.FC<{
           fontSize="12px"
           fontWeight="400"
         >
-          <AddEmoji isDark={bgGray === "gray.800"} />
+          <AddEmoji isDark={bgGray === "#0E0F11"} />
         </Center>
       </PopoverTrigger>
       <PopoverContent
         h="32px"
         w="fit-content"
-        borderColor={popoverRadiusWhite}
+        borderColor={borderLightGray}
         borderRadius="24px"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.03)"
         bg={bgWhite}
-        _focus={{ borderColor: { popoverRadiusWhite } }}
+        _focus={{ borderColor: { popoverRadiusWhite: borderLightGray } }}
       >
         <PopoverBody margin="0" padding="6px">
           <Flex justifyContent="space-around" alignItems="stretch">

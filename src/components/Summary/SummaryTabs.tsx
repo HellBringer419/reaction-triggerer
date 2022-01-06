@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../utils/Context";
 import UserReactionItem from "./UserReactionItem";
@@ -7,7 +7,9 @@ import { aggregrateEmojiCount } from "../../utils/aggreagrate-emoji-count";
 const SummaryTabs = () => {
   const { userReactions, reactions, users, hoveredReactionId } =
     useContext(Context);
-
+  const tabPanelColor= useColorModeValue("#393939", "#C7C7C7");
+  const borderLightGray = useColorModeValue("#E0E0E0", "#050505");
+  const blackColor = useColorModeValue("#161616", "#E8E8E8");
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
@@ -28,12 +30,12 @@ const SummaryTabs = () => {
       index={tabIndex}
       onChange={(index) => setTabIndex(index)}
     >
-      <TabList minW="fit-content" color="#161616">
+      <TabList minW="fit-content" color={blackColor}>
         <Tab
           marginX="1px"
           borderBottomStyle="solid"
           borderBottomWidth="1px"
-          borderBottomColor="#E0E0E0"
+          borderBottomColor={borderLightGray}
           fontSize="14px"
           _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
         >
@@ -46,7 +48,7 @@ const SummaryTabs = () => {
             marginX="1px"
             borderBottomStyle="solid"
             borderBottomWidth="1px"
-            borderBottomColor="#E0E0E0"
+            borderBottomColor={borderLightGray}
             fontSize="14px"
             _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
             _focus={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
@@ -56,7 +58,7 @@ const SummaryTabs = () => {
           </Tab>
         ))}
       </TabList>
-      <TabPanels h="100%" color="#393939">
+      <TabPanels h="100%" color={tabPanelColor}>
         <TabPanel h="100%" maxH="300px" overflowY="auto">
           {userReactions.map((userReaction) => (
             <UserReactionItem

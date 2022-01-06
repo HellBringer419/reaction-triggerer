@@ -17,8 +17,11 @@ const ReactionButton: React.FC<{
   handleHoverOut,
   handleEmojiUnselect,
 }) => {
-  const bgActive = useColorModeValue("#EDF5FF", "blue.500");
-  const bgInactive = useColorModeValue("#F4F4F4", "gray.700");
+  const bgActive = useColorModeValue("#EDF5FF", "#131920");
+  const bgInactive = useColorModeValue("#F4F4F4", "#0A0A0A");
+  const btnColor = useColorModeValue("#525252", "#ADADAD");
+  const borderSelectedColor = useColorModeValue("#0F62FE", "#394760")
+  const borderUnselectedColor = useColorModeValue("white", "gray.800")
 
   return (
     <Button
@@ -28,7 +31,7 @@ const ReactionButton: React.FC<{
       paddingY="2px"
       borderRadius="100px"
       borderWidth="1px"
-      borderColor={isActive ? "#0F62FE" : "white"}
+      borderColor={isActive ? borderSelectedColor : borderUnselectedColor}
       boxSizing="border-box"
       display="flex"
       justifyContent="center"
@@ -36,7 +39,7 @@ const ReactionButton: React.FC<{
       bg={isActive ? bgActive : bgInactive}
       fontSize="12px"
       fontWeight="400"
-      color="#525252"
+      color={btnColor}
       onMouseEnter={() => handleHoverIn(id)}
       onMouseLeave={() => handleHoverOut()}
       onClick={() => (isActive ? handleEmojiUnselect(id) : {})}

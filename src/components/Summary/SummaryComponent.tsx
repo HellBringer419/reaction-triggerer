@@ -3,6 +3,8 @@ import SummaryTabs from "./SummaryTabs";
 
 const SummaryComponent = () => {
   const bgWhite = useColorModeValue("white", "gray.800");
+  const blackColor = useColorModeValue("#161616", "#E8E8E8");
+
   return (
     <VStack h="386px" w="497px" alignItems="flex-start" bg={bgWhite}>
       <Text
@@ -10,7 +12,7 @@ const SummaryComponent = () => {
         paddingBottom="3px"
         fontWeight="600"
         fontSize="14px"
-        color="#161616"
+        color={blackColor}
       >
         Reactions
       </Text>

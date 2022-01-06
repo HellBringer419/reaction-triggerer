@@ -12,13 +12,12 @@ const TriggerEmoji: React.FC<{
   name: String;
   handleEmojiSelect: (id: number) => void;
 }> = ({ id, emoji, name, handleEmojiSelect }) => {
-  const bgBlack = useColorModeValue("#161616", "gray.500");
-  const bgWhite = useColorModeValue("white", "gray.700");
+  const blackColor = useColorModeValue("#161616", "#E8E8E8");
+  const bgWhite = useColorModeValue("white", "gray.800");
   return (
     <Popover placement="top" trigger="hover">
       <PopoverTrigger>
         <Text
-          color="black"
           fontWeight="700"
           fontSize="14px"
           lineHeight="18px"
@@ -32,7 +31,7 @@ const TriggerEmoji: React.FC<{
         h="24px"
         w="fit-content"
         borderRadius="100px"
-        bg={bgBlack}
+        bg={blackColor}
         color={bgWhite}
         paddingY="2px"
         paddingX="8px"
