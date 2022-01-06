@@ -17,7 +17,7 @@ import { Reaction } from "../types/reaction";
 const initialState = {
   hoveredReactionId: 0,
   userReactions: [] as UserReaction[],
-  currentContentId: 1,
+  currentContentId: 2,
   currentUserId: 1,
   users: [] as User[],
   reactions: [] as Reaction[],
