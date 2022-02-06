@@ -61,10 +61,12 @@ const SummaryTabs = () => {
               borderBottomWidth="1px"
               borderBottomColor={borderLightGray}
               fontSize="14px"
+              lineHeight="18px"
+              letterSpacing="0.16px"
               _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
               _focus={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
             >
-              {reaction.emoji} ·{" "}
+              {reaction.emoji}{" · "} 
               {aggregrateEmojiCount(userReactions, reaction.id)}
             </Tab>
           ))}
