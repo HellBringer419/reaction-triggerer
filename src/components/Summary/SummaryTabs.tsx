@@ -49,21 +49,25 @@ const SummaryTabs = () => {
           All
         </Tab>
 
-        {reactions.map((reaction) => (
-          <Tab
-            key={reaction.id}
-            marginX="1px"
-            borderBottomStyle="solid"
-            borderBottomWidth="1px"
-            borderBottomColor={borderLightGray}
-            fontSize="14px"
-            _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
-            _focus={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
-          >
-            {reaction.emoji} ·{" "}
-            {aggregrateEmojiCount(userReactions, reaction.id)}
-          </Tab>
-        ))}
+        {reactions
+          .filter(
+            (reaction) => aggregrateEmojiCount(userReactions, reaction.id) !== 0
+          )
+          .map((reaction) => (
+            <Tab
+              key={reaction.id}
+              marginX="1px"
+              borderBottomStyle="solid"
+              borderBottomWidth="1px"
+              borderBottomColor={borderLightGray}
+              fontSize="14px"
+              _selected={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
+              _focus={{ fontWeight: "600", borderBottomColor: "#0F62FE" }}
+            >
+              {reaction.emoji} ·{" "}
+              {aggregrateEmojiCount(userReactions, reaction.id)}
+            </Tab>
+          ))}
       </TabList>
       <TabPanels h="100%" color={tabPanelColor}>
         <TabPanel h="100%" maxH="300px" overflowY="auto">
