@@ -140,7 +140,7 @@ export const ContextProvider: FC = ({ children }) => {
       })
       .catch(() => {
         return axios
-          .get(fallbackApiUrl + "user_content_reactions")
+          .post(fallbackApiUrl + "user_content_reactions", userReaction)
           .then((response) => {
             if (response.status === 201) {
               const newUserReaction = { ...userReaction, id: response.data.id };
@@ -172,7 +172,7 @@ export const ContextProvider: FC = ({ children }) => {
       })
       .catch(() => {
         return axios
-          .get(fallbackApiUrl + `user_content_reactions/${id}`)
+          .delete(fallbackApiUrl + `user_content_reactions/${id}`)
           .then((response) => {
             if (response.status === 200) {
               dispatch({
