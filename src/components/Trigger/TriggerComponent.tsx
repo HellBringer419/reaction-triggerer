@@ -17,7 +17,7 @@ const TriggerComponent = () => {
     setHoveredReactionId,
   } = useContext(Context);
 
-  const [activeEmojiId, setActiveEmojiId] = useState(0);
+  const [activeEmojiIds, setActiveEmojiIds] = useState<number[]>([]);
 
   const handleHoverIn = (reactionId: number) => {
     setHoveredReactionId(reactionId);
@@ -28,7 +28,7 @@ const TriggerComponent = () => {
   };
 
   const handleEmojiSelect = (reactionId: number) => {
-    setActiveEmojiId(reactionId);
+    setActiveEmojiIds([...activeEmojiIds, reactionId]);
     const newUserReaction: UserReaction = {
       user_id: currentUserId,
       reaction_id: reactionId,
@@ -38,7 +38,9 @@ const TriggerComponent = () => {
   };
 
   const handleEmojiUnselect = (reactionId: number) => {
-    setActiveEmojiId(0);
+    setActiveEmojiIds(
+      activeEmojiIds.filter((element) => element === reactionId)
+    );
     let toDeleteUserReactionId: number | undefined = 0;
     userReactions.forEach((userReaction) => {
       if (
@@ -66,9 +68,10 @@ const TriggerComponent = () => {
             emoji={reaction.emoji}
             count={aggregrateEmojiCount(userReactions, reaction.id)}
             id={reaction.id}
-            isActive={reaction.id === activeEmojiId}
+            isActive={activeEmojiIds.includes(reaction.id)}
             handleHoverIn={handleHoverIn}
             handleHoverOut={handleHoverOut}
+            handleEmojiSelect={handleEmojiSelect}
             handleEmojiUnselect={handleEmojiUnselect}
           />
         ))}
@@ -81,7 +84,3 @@ const TriggerComponent = () => {
 };
 
 export default TriggerComponent;
-
-// const handleHover = (reactionId: number) => {
-// setHoveredReactionId(reactionId !== undefined ? reactionId : 0);
-// };

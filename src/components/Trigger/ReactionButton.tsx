@@ -7,6 +7,7 @@ const ReactionButton: React.FC<{
   id: number;
   handleHoverIn: (id: number) => void;
   handleHoverOut: () => void;
+  handleEmojiSelect: (id: number) => void;
   handleEmojiUnselect: (id: number) => void;
 }> = ({
   emoji,
@@ -15,6 +16,7 @@ const ReactionButton: React.FC<{
   id,
   handleHoverIn,
   handleHoverOut,
+  handleEmojiSelect,
   handleEmojiUnselect,
 }) => {
   const bgActive = useColorModeValue("#EDF5FF", "#131920");
@@ -42,7 +44,7 @@ const ReactionButton: React.FC<{
       color={btnColor}
       onMouseEnter={() => handleHoverIn(id)}
       onMouseLeave={() => handleHoverOut()}
-      onClick={() => (isActive ? handleEmojiUnselect(id) : {})}
+      onClick={() => (isActive ? handleEmojiUnselect(id) : handleEmojiSelect(id))}
     >
       {emoji} · {count}
     </Button>
