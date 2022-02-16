@@ -1,10 +1,26 @@
 import { HStack } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserReaction } from "../../types/user-reaction";
 import { aggregrateEmojiCount } from "../../utils/aggreagrate-emoji-count";
 import { Context } from "../../utils/Context";
 import ReactionButton from "./ReactionButton";
 import TriggerButton from "./TriggerButton";
+
+const initializeActiveEmojis = (
+  userReactions: UserReaction[],
+  currentUserId: number
+): number[] => {
+  const currentUsersReaction = userReactions.filter(
+    (userReaction) => userReaction.user_id === currentUserId
+  );
+  let initialUserReactions = [] as number[];
+  currentUsersReaction.forEach((userReaction) => {
+    if (userReaction.reaction_id)
+      initialUserReactions.push(userReaction.reaction_id);
+  });
+  console.log({ initialUserReactions, userReactions, currentUserId });
+  return initialUserReactions;
+};
 
 const TriggerComponent = () => {
   const {
@@ -18,6 +34,10 @@ const TriggerComponent = () => {
   } = useContext(Context);
 
   const [activeEmojiIds, setActiveEmojiIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    setActiveEmojiIds(initializeActiveEmojis(userReactions, currentUserId));
+  }, [userReactions, currentUserId]);
 
   const handleHoverIn = (reactionId: number) => {
     setHoveredReactionId(reactionId);

@@ -22,8 +22,8 @@ const ReactionButton: React.FC<{
   const bgActive = useColorModeValue("#EDF5FF", "#131920");
   const bgInactive = useColorModeValue("#F4F4F4", "#0A0A0A");
   const btnColor = useColorModeValue("#525252", "#ADADAD");
-  const borderSelectedColor = useColorModeValue("#0F62FE", "#394760")
-  const borderUnselectedColor = useColorModeValue("white", "gray.800")
+  const borderSelectedColor = useColorModeValue("#0F62FE", "#394760");
+  const borderUnselectedColor = useColorModeValue("white", "gray.800");
 
   return (
     <Button
@@ -44,7 +44,9 @@ const ReactionButton: React.FC<{
       color={btnColor}
       onMouseEnter={() => handleHoverIn(id)}
       onMouseLeave={() => handleHoverOut()}
-      onClick={() => (isActive ? handleEmojiUnselect(id) : handleEmojiSelect(id))}
+      onClick={() =>
+        isActive ? handleEmojiUnselect(id) : handleEmojiSelect(id)
+      }
     >
       {emoji} · {count}
     </Button>
