@@ -18,7 +18,6 @@ const initializeActiveEmojis = (
     if (userReaction.reaction_id)
       initialUserReactions.push(userReaction.reaction_id);
   });
-  console.log({ initialUserReactions, userReactions, currentUserId });
   return initialUserReactions;
 };
 
@@ -96,7 +95,7 @@ const TriggerComponent = () => {
           />
         ))}
       <TriggerButton
-        reactions={reactions}
+        reactions={reactions.filter(reaction => !activeEmojiIds.includes(reaction.id))}
         handleEmojiSelect={handleEmojiSelect}
       />
     </HStack>
