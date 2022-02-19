@@ -1,23 +1,19 @@
-import { Center, Stack, useColorModeValue, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
+import { useContext } from "react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
+import { Context } from "../utils/Context";
 import SummaryComponent from "./Summary/SummaryComponent";
 import TriggerComponent from "./Trigger/TriggerComponent";
 
 const ContainerComponent = () => {
-  const bgGray = useColorModeValue("gray.50", "gray.700");
+  const { hoveredReactionId } = useContext(Context);
 
   return (
-    <Stack minH="100vh" spacing={8} direction={["column-reverse", "row"]}>
-      <Center w={["100%", "66%"]} bg={bgGray}>
-        <SummaryComponent />
-      </Center>
-      <VStack w={["100%", "34%"]}>
-        <ColorModeSwitcher alignSelf={"flex-end"} />
-        <Center h="80%" w="100%">
-          <TriggerComponent />
-        </Center>
-      </VStack>
-    </Stack>
+    <VStack minW="90vw" minH="90vh" justifyContent="space-between">
+      <ColorModeSwitcher alignSelf="flex-end" />
+      <SummaryComponent isVisible={hoveredReactionId === 0} />
+      <TriggerComponent />
+    </VStack>
   );
 };
 
