@@ -1,11 +1,4 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Text,
-  Tooltip,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
 
 const TriggerEmoji: React.FC<{
   id: number;
