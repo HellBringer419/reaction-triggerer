@@ -22,11 +22,15 @@ const SummaryTabs = () => {
   useEffect(() => {
     setTabIndex(
       hoveredReactionId !== 0
-        ? reactions.findIndex((reaction) => reaction.id === hoveredReactionId) +
-            1
+        ? reactions
+            .filter(
+              (reaction) =>
+                aggregrateEmojiCount(userReactions, reaction.id) !== 0
+            )
+            .findIndex((reaction) => reaction.id === hoveredReactionId) + 1
         : 0
     );
-  }, [hoveredReactionId, reactions]);
+  }, [hoveredReactionId, reactions, userReactions]);
 
   return (
     <Tabs
